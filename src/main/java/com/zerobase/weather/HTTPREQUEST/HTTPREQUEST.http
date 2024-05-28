@@ -1,0 +1,7 @@
+### GET request to example server
+POST localhost:8080/diary?date=2024-05-29
+Content-Type: application/json
+
+"오늘 잠을 잘 잤다"
+
+###
