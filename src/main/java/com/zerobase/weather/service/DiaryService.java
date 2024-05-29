@@ -156,5 +156,13 @@ public class DiaryService {
         return DiaryDto.fromEntity(updatedDiary);
 
     }
+
+    @Transactional(readOnly = false)
+    public void deleteDiary(LocalDate date) {
+        int delectCount = diaryRepository.deleteByDate(date);
+        if(delectCount ==0){
+            throw new DiaryException(DIARY_NOT_FOUND);
+        }
+    }
 }
 

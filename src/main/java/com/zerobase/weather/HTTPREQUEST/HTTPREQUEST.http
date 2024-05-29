@@ -2,7 +2,7 @@
 POST localhost:8080/diary?date=2024-05-31
 Content-Type: application/json
 
-감사합니다2
+감사합니다1
 
 ###
 
@@ -10,7 +10,7 @@ GET localhost:8080/diary?date=2024-05-31
 
 ###
 
-GET localhost:8080/diary/between?startDate=2024-05-29&endDate=2024-05-30
+GET localhost:8080/diary/between?startDate=2024-05-30&endDate=2024-05-31
 
 ###
 
@@ -18,3 +18,7 @@ PUT localhost:8080/diary?date=2024-05-31
 Content-Type: application/json
 
 새로운 일기입니다
+
+###
+DELETE localhost:8080/diary?date=2024-05-31
+Content-Type: application/json

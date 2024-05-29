@@ -109,5 +109,20 @@ public class DiaryController {
                 .date(updateDiary.getDate())
                 .build());
     }
+
+
+    /**
+     * DELETE / delete / diary
+     * 날짜 일기 삭제 API
+     * @param updateDate
+     * @return
+     */
+    @DeleteMapping
+    public ResponseEntity deleteDiary(
+            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate updateDate) {
+        diaryService.deleteDiary(updateDate);
+
+        return ResponseEntity.ok().body("Diary deleted.");
+    }
 }
 
