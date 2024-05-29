@@ -3,6 +3,7 @@ package com.zerobase.weather.controller;
 import com.zerobase.weather.dto.AddDiary;
 import com.zerobase.weather.dto.DiaryDto;
 import com.zerobase.weather.dto.GetDiary;
+import com.zerobase.weather.dto.UpdatedDiary;
 import com.zerobase.weather.service.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class DiaryController {
     /**
      * POST / create / diary
      * 일기 작성 API
+     *
      * @param date
      * @param text
      * @return
@@ -41,6 +43,7 @@ public class DiaryController {
     /**
      * GET / read / diary
      * 하루의 일기 조회 API
+     *
      * @param date
      * @return
      */
@@ -62,8 +65,9 @@ public class DiaryController {
     }
 
     /**
-     *  GET / read / diaries
+     * GET / read / diaries
      * 구간 일기 조회 API
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -86,5 +90,23 @@ public class DiaryController {
         );
     }
 
+
+    /**
+     * PUT / update / diary
+     * @param updateDate
+     * @param newText
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<UpdatedDiary> updateDiary(
+            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate updateDate,
+            @RequestBody String newText) {
+        DiaryDto updateDiary = diaryService.updateDiary(updateDate, newText);
+
+        return ResponseEntity.ok(UpdatedDiary.builder()
+                .text(updateDiary.getText())
+                .date(updateDiary.getDate())
+                .build());
+    }
 }
 

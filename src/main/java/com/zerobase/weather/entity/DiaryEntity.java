@@ -32,4 +32,8 @@ public class DiaryEntity {
                 .temperature(weather.getTemperature())
                 .build();
     }
+
+    public void updateDiary(String text){
+        this.diaryText = text;
+    }
 }

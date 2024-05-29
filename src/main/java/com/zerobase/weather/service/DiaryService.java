@@ -3,6 +3,8 @@ package com.zerobase.weather.service;
 import com.zerobase.weather.dto.DiaryDto;
 import com.zerobase.weather.entity.DiaryEntity;
 import com.zerobase.weather.entity.WeatherEntity;
+import com.zerobase.weather.exception.DiaryException;
+import com.zerobase.weather.exception.ErrorCode;
 import com.zerobase.weather.repository.DiaryRepository;
 import com.zerobase.weather.repository.WeatherRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.zerobase.weather.exception.ErrorCode.DIARY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -120,7 +125,8 @@ public class DiaryService {
     }
 
     public List<DiaryDto> getDiary(LocalDate date) {
-        List<DiaryEntity> diaries = diaryRepository.findAllByDate(date);
+        List<DiaryEntity> diaries = diaryRepository.findAllByDate(date).
+                orElse(new ArrayList<>());
         return diaries.stream()
                 .map(e -> DiaryDto.builder()
                         .text(e.getDiaryText())
@@ -137,6 +143,18 @@ public class DiaryService {
                         .date(e.getDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = false)
+    public DiaryDto updateDiary(LocalDate updateDate, String newText) {
+        List<DiaryEntity> date = diaryRepository.findAllByDate(updateDate)
+                .orElseThrow(()-> new DiaryException(DIARY_NOT_FOUND));
+        DiaryEntity updatedDiary = date.get(0);
+
+        updatedDiary.updateDiary(newText);
+
+        return DiaryDto.fromEntity(updatedDiary);
+
     }
 }
 
