@@ -11,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.json.simple.parser.JSONParser;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,12 @@ public class DiaryService {
         dateWeather.setTemperature((double) parsedWeather.get("temp"));
 
         return dateWeather;
+    }
+    @Scheduled(cron = "0 0 1 * * *")
+    @Transactional
+    public void saveWeatherDate() {
+
+        weatherRepository.save(getWeatherFromApi());
     }
 
     private String getWeatherString() {
