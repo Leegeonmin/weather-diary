@@ -89,7 +89,6 @@ public class DiaryService {
             String inputLine;
             StringBuilder response = new StringBuilder();
             while ((inputLine = br.readLine()) != null) {
-                System.out.println(inputLine);
                 response.append(inputLine);
             }
             return response.toString();
