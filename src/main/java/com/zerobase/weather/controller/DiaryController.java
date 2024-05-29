@@ -93,6 +93,7 @@ public class DiaryController {
 
     /**
      * PUT / update / diary
+     * 일기 수정 API
      * @param updateDate
      * @param newText
      * @return
