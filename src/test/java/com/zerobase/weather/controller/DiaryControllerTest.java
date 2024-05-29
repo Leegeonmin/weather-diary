@@ -56,7 +56,6 @@ class DiaryControllerTest {
     @Test
     @DisplayName("한 날짜 일기 조회 API 성공")
     void successgetOneDateDiaries() throws Exception {
-        String text = "오늘의 일기 내용";
         LocalDate date = LocalDate.of(2024, 5, 29);
         List<DiaryDto> diaryDtoList = new ArrayList<>();
         diaryDtoList.add(DiaryDto.builder().text("첫번째일기").date(date).build());
@@ -77,7 +76,6 @@ class DiaryControllerTest {
     @Test
     @DisplayName("구간 날짜 일기 조회 API 성공")
     void successgetBetweenDateDiaries() throws Exception {
-        String text = "오늘의 일기 내용";
         LocalDate date = LocalDate.of(2024, 5, 29);
         List<DiaryDto> diaryDtoList = new ArrayList<>();
         diaryDtoList.add(DiaryDto.builder().text("첫번째일기").date(date).build());

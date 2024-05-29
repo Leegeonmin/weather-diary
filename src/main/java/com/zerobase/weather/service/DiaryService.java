@@ -124,8 +124,7 @@ public class DiaryService {
     }
 
     public List<DiaryDto> getDiary(LocalDate date) {
-        List<DiaryEntity> diaries = diaryRepository.findAllByDate(date).
-                orElse(new ArrayList<>());
+        List<DiaryEntity> diaries = diaryRepository.findAllByDate(date);
         return diaries.stream()
                 .map(e -> DiaryDto.builder()
                         .text(e.getDiaryText())
@@ -146,8 +145,10 @@ public class DiaryService {
 
     @Transactional(readOnly = false)
     public DiaryDto updateDiary(LocalDate updateDate, String newText) {
-        List<DiaryEntity> date = diaryRepository.findAllByDate(updateDate)
-                .orElseThrow(()-> new DiaryException(DIARY_NOT_FOUND));
+        List<DiaryEntity> date = diaryRepository.findAllByDate(updateDate);
+        if (date.isEmpty()) {
+            throw new DiaryException(DIARY_NOT_FOUND);
+        }
         DiaryEntity updatedDiary = date.get(0);
 
         updatedDiary.updateDiary(newText);

@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface DiaryRepository  extends JpaRepository<DiaryEntity, Long> {
-    Optional<List<DiaryEntity>> findAllByDate(LocalDate date);
+    List<DiaryEntity> findAllByDate(LocalDate date);
     List<DiaryEntity> findAllByDateBetween(LocalDate date1, LocalDate date2);
 }
