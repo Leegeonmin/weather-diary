@@ -1,6 +1,5 @@
 package com.zerobase.weather.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.weather.dto.DiaryDto;
 import com.zerobase.weather.service.DiaryService;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -30,9 +28,6 @@ class DiaryControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("일기 작성 성공")

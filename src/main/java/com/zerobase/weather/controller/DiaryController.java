@@ -21,7 +21,7 @@ public class DiaryController {
 
     /**
      * POST / create / diary
-     *
+     * 일기 작성 API
      * @param date
      * @param text
      * @return
@@ -40,6 +40,7 @@ public class DiaryController {
 
     /**
      * GET / read / diary
+     * 하루의 일기 조회 API
      * @param date
      * @return
      */
@@ -54,6 +55,32 @@ public class DiaryController {
                                 GetDiary.Response
                                         .builder()
                                         .text(e.getText())
+                                        .date(e.getDate())
+                                        .build())
+                        .collect(Collectors.toList())
+        );
+    }
+
+    /**
+     *  GET / read / diaries
+     * 구간 일기 조회 API
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @GetMapping("/between")
+    public ResponseEntity<List<GetDiary.Response>> getDiaries(
+            @RequestParam(name = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(name = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        List<DiaryDto> diaries = diaryService.getDiaries(startDate, endDate);
+
+        return ResponseEntity.ok(
+                diaries.stream().map(e ->
+                                GetDiary.Response
+                                        .builder()
+                                        .text(e.getText())
+                                        .date(e.getDate())
                                         .build())
                         .collect(Collectors.toList())
         );

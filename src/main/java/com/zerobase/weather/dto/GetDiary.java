@@ -5,12 +5,6 @@ import lombok.*;
 import java.time.LocalDate;
 
 public class GetDiary {
-    @Builder
-    @Getter
-    public static class Request{
-        private LocalDate date;
-    }
-
     @Getter
     @Setter
     @NoArgsConstructor
@@ -18,5 +12,6 @@ public class GetDiary {
     @Builder
     public static class Response{
         private String text;
+        private LocalDate date;
     }
 }

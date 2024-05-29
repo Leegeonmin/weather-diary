@@ -1,7 +1,6 @@
 package com.zerobase.weather.service;
 
 import com.zerobase.weather.dto.DiaryDto;
-import com.zerobase.weather.dto.GetDiary;
 import com.zerobase.weather.entity.DiaryEntity;
 import com.zerobase.weather.entity.WeatherEntity;
 import com.zerobase.weather.repository.DiaryRepository;
@@ -49,9 +48,9 @@ public class DiaryService {
     private WeatherEntity getWeatherEntity(LocalDate date) {
         List<WeatherEntity> dates = weatherRepository.findAllByDate(date);
         WeatherEntity weather;
-        if(dates.isEmpty()) {
-            weather=  getWeatherFromApi();
-        }else{
+        if (dates.isEmpty()) {
+            weather = getWeatherFromApi();
+        } else {
             weather = dates.get(0);
         }
         return weather;
@@ -72,6 +71,7 @@ public class DiaryService {
 
         return dateWeather;
     }
+
     private String getWeatherString() {
         try {
             String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=" + apiKey;
@@ -98,6 +98,7 @@ public class DiaryService {
             return "failed to get response";
         }
     }
+
     private Map<String, Object> parseWeather(String jsonString) {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject;
@@ -121,9 +122,21 @@ public class DiaryService {
     public List<DiaryDto> getDiary(LocalDate date) {
         List<DiaryEntity> diaries = diaryRepository.findAllByDate(date);
         return diaries.stream()
-                .map(e-> DiaryDto.builder()
+                .map(e -> DiaryDto.builder()
                         .text(e.getDiaryText())
+                        .date(e.getDate())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public List<DiaryDto> getDiaries(LocalDate startDate, LocalDate endDate) {
+        List<DiaryEntity> diaries = diaryRepository.findAllByDateBetween(startDate, endDate);
+        return diaries.stream()
+                .map(e -> DiaryDto.builder()
+                        .text(e.getDiaryText())
+                        .date(e.getDate())
                         .build())
                 .collect(Collectors.toList());
     }
 }
+

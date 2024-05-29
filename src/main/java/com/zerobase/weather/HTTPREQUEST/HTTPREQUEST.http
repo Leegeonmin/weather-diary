@@ -1,9 +1,13 @@
 ### GET request to example server
-POST localhost:8080/diary?date=2024-05-29
+POST localhost:8080/diary?date=2024-05-31
 Content-Type: application/json
 
 감사합니다
 
 ###
 
-GET localhost:8080/diary?date=2024-05-29
+GET localhost:8080/diary?date=2024-05-31
+
+###
+
+GET localhost:8080/diary/between?startDate=2024-05-29&endDate=2024-05-30
