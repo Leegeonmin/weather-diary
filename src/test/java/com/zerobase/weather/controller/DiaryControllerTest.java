@@ -33,7 +33,7 @@ class DiaryControllerTest {
     @DisplayName("일기 작성 성공")
     void successCreateDiary() throws Exception {
         String text = "오늘의 일기 내용";
-        LocalDate date = LocalDate.of(2024, 05, 29);
+        LocalDate date = LocalDate.of(2024, 5, 29);
         //given
         given(diaryService.insertDiary(any(LocalDate.class), anyString()))
                 .willReturn(DiaryDto.builder()

@@ -4,7 +4,6 @@ import com.zerobase.weather.dto.DiaryDto;
 import com.zerobase.weather.entity.DiaryEntity;
 import com.zerobase.weather.entity.WeatherEntity;
 import com.zerobase.weather.exception.DiaryException;
-import com.zerobase.weather.exception.ErrorCode;
 import com.zerobase.weather.repository.DiaryRepository;
 import com.zerobase.weather.repository.WeatherRepository;
 import lombok.RequiredArgsConstructor;
