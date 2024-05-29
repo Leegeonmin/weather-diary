@@ -13,11 +13,13 @@ import java.time.LocalDate;
 public class DiaryDto {
     private Long id;
     private LocalDate date;
+    private String text;
 
     public static DiaryDto fromEntity(DiaryEntity diaryEntity){
         return DiaryDto.builder()
                 .id(diaryEntity.getId())
                 .date(diaryEntity.getDate())
+                .text(diaryEntity.getDiaryText())
                 .build();
     }
 }

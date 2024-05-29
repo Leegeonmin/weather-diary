@@ -1,6 +1,7 @@
 package com.zerobase.weather.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +24,12 @@ public class GlobalException {
         return new ErrorResponse(ErrorCode.INVALID_REQUEST,
                 ErrorCode.INVALID_REQUEST.getDescription(),
                 fieldError);
+    }
+    //자주 발생되는 오류
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ErrorResponse handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        log.error("DataIntegrityViolationException is occurred", e);
+        return new ErrorResponse(ErrorCode.INVALID_REQUEST, ErrorCode.INVALID_REQUEST.getDescription());
     }
 
     @ResponseStatus

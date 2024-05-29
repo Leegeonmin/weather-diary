@@ -2,6 +2,8 @@
 POST localhost:8080/diary?date=2024-05-29
 Content-Type: application/json
 
-"오늘 잠을 잘 잤다"
+감사합니다
 
 ###
+
+GET localhost:8080/diary?date=2024-05-29

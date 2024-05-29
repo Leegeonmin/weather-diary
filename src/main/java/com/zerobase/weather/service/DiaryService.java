@@ -1,6 +1,7 @@
 package com.zerobase.weather.service;
 
 import com.zerobase.weather.dto.DiaryDto;
+import com.zerobase.weather.dto.GetDiary;
 import com.zerobase.weather.entity.DiaryEntity;
 import com.zerobase.weather.entity.WeatherEntity;
 import com.zerobase.weather.repository.DiaryRepository;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -114,5 +116,14 @@ public class DiaryService {
         resultMap.put("icon", weatherData.get("icon"));
 
         return resultMap;
+    }
+
+    public List<DiaryDto> getDiary(LocalDate date) {
+        List<DiaryEntity> diaries = diaryRepository.findAllByDate(date);
+        return diaries.stream()
+                .map(e-> DiaryDto.builder()
+                        .text(e.getDiaryText())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
