@@ -117,4 +117,21 @@ class DiaryControllerTest {
                 .andExpect(jsonPath("$.text").value(newText))
                 .andExpect(jsonPath("$.date").value(date.toString()));
     }
+
+    @Test
+    @DisplayName("일기 삭제 API 성공")
+    void successDeleteDiary() throws Exception {
+
+        //given
+        given(diaryService.deleteDiary(any(LocalDate.class)))
+                .willReturn(3);
+        //when
+        //then
+        mockMvc.perform(delete("/diary?date=2024-05-29")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value("3 Diaries deleted."));
+
+    }
 }

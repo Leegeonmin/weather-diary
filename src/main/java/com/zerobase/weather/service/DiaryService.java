@@ -21,7 +21,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,11 +157,13 @@ public class DiaryService {
     }
 
     @Transactional(readOnly = false)
-    public void deleteDiary(LocalDate date) {
+    public int deleteDiary(LocalDate date) {
         int delectCount = diaryRepository.deleteByDate(date);
-        if(delectCount ==0){
+        if(delectCount == 0){
             throw new DiaryException(DIARY_NOT_FOUND);
         }
+
+        return delectCount;
     }
 }
 

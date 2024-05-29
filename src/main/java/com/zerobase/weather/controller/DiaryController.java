@@ -120,9 +120,9 @@ public class DiaryController {
     @DeleteMapping
     public ResponseEntity deleteDiary(
             @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate updateDate) {
-        diaryService.deleteDiary(updateDate);
+        int deleteCount = diaryService.deleteDiary(updateDate);
 
-        return ResponseEntity.ok().body("Diary deleted.");
+        return ResponseEntity.ok().body(deleteCount + " Diaries deleted.");
     }
 }
 

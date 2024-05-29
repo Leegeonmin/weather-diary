@@ -132,4 +132,33 @@ class DiaryServiceTest {
         //then
         assertEquals(ErrorCode.DIARY_NOT_FOUND, diaryException.getErrorCode());
     }
+
+    @Test
+    @DisplayName("일기 삭제 성공")
+    void successDeleteDiary() {
+        //given
+        LocalDate date = LocalDate.of(2000, 12, 12);
+        given(diaryRepository.deleteByDate(any(LocalDate.class)))
+                .willReturn(3);
+        //when
+        int delectCount = diaryRepository.deleteByDate(date);
+
+        //then
+        assertEquals(delectCount, 3);
+    }
+
+    @Test
+    @DisplayName("일기 삭제 실패 (날짜에 해당하는 일기 없음")
+    void failDeleteDiary_DIARYNOTFOUND() {
+        //given
+        LocalDate date = LocalDate.of(2000, 12, 12);
+        given(diaryRepository.deleteByDate(any(LocalDate.class)))
+                .willReturn(0);
+        //when
+        DiaryException diaryException = assertThrows(DiaryException.class,
+                () -> diaryService.deleteDiary(date));
+
+        //then
+        assertEquals(diaryException.getErrorCode(), ErrorCode.DIARY_NOT_FOUND);
+    }
 }
